@@ -1,0 +1,105 @@
+<!-- saved from url=(0045)https://kaori208a3.herokuapp.com/registration -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Required meta tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./WEB322_files/web322.css" />
+    <title>WEB322</title>
+    <style>
+      body { font-size: 18px; } .error-form { color: red; } input[type="text"] {
+      font-size: 18px; width: 100%; } input[type="password"] { font-size: 18px;
+      width: 100%; } .form-wrapper { position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); max-width: 350px; width: 100%; } @media
+      screen and (min-width: 500px) { .form-wrapper { box-shadow: 0px 0px 20px
+      5px; padding: 50px; margin: 50px; border-radius: 15px; background-color:
+      #abdbe3; } } @media screen and (max-width: 500px) { } .form-field-block {
+      margin: 10px 0px; } .form-input-field { border: 1px solid #ccc;
+      border-radius: 4px; } .form-buttons-wrapper { margin-top: 15px; }
+      .form-button { width: 100%; margin: 5px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="form-wrapper">
+      {{! <div class="error-form">Please include first name</div>
+         <div class="error-form">Please include last name</div>
+         <div class="error-form">Please include username</div>
+         <div class="error-form">Please include phone number</div>
+         <div class="error-form">Please include password</div>
+         <div class="error-form">Username must be between 6 to 12 characters and not include special character</div>
+         <div class="error-form">Phone number must only contain number</div> }}
+
+      {{#each data.error}}
+        <div class="error-form">{{msg}}</div>
+      {{/each}}
+
+      <form action="/" method="POST" enctype="multipart/form-data">
+        <div class="form-field-block">
+          <label for="fname">First name:</label><br />
+          <input
+            class="form-input-field"
+            type="text"
+            id="fname"
+            name="fname"
+            value="{{data.vals.fname}}"
+          /><br />
+        </div>
+        <div class="form-field-block">
+          <label for="lname">Last name:</label><br />
+          <input
+            class="form-input-field"
+            type="text"
+            id="lname"
+            name="lname"
+            value="{{data.vals.lname}}"
+          /><br />
+        </div>
+        <div class="form-field-block">
+          <label for="phone">Phone:</label><br />
+          <input
+            class="form-input-field"
+            type="text"
+            id="phone"
+            name="phone"
+            value="{{data.vals.phone}}"
+          /><br />
+        </div>
+        <div class="form-field-block">
+          <label for="username">Username</label><br />
+          <input
+            class="form-input-field"
+            type="text"
+            id="username"
+            name="username"
+            value="{{data.vals.username}}"
+          /><br />
+        </div>
+        <div class="form-field-block">
+          <label for="password">Password:</label><br />
+          <input
+            class="form-input-field"
+            type="password"
+            id="password"
+            name="password"
+            value="{{data.vals.password}}"
+          /><br />
+        </div>
+        <div class="form-buttons-wrapper">
+          <input
+            class="form-button"
+            name="register-btn"
+            type="submit"
+            value="Submit"
+          />
+
+          <input
+            class="form-button"
+            name="login-btn"
+            type="submit"
+            value="Already have an account? Login here!"
+          />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
