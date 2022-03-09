@@ -64,6 +64,14 @@ var Project = seq_obj.define("Project", {
   description: sequelize.TEXT,
 });
 
+const accounts = seq_obj.define("accounts", {
+  fname: sequelize.STRING,
+  lname: sequelize.STRING,
+  phone: sequelize.INTEGER,
+  username: sequelize.STRING,
+  password: sequelize.STRING,
+});
+
 // { fname, lname, phone, username, password }
 
 seq_obj.sync().then(function () {
@@ -114,10 +122,41 @@ app.post("/", upload.single("photo"), (req, res) => {
       msg: "Phone number must only contain number",
     });
 
-  res.render("registration", {
-    data: { error: err, vals: { fname, lname, phone, username, password } },
-    layout: false,
-  });
+  if (!err.length) {
+    // const accounts = seq_obj.define("accounts", {
+    //     fname: sequelize.STRING,
+    //     lname: sequelize.STRING,
+    //     phone: sequelize.NUMBER,
+    //     username: sequelize.STRING,
+    //     password: sequelize.STRING,
+    //   });
+
+    accounts
+      .create({
+        fname,
+        lname,
+        phone: parseInt(phone),
+        username,
+        password,
+      })
+      .then(() => {
+        res.redirect("/login");
+      })
+      .catch(() => {
+        res.render("registration", {
+          data: {
+            error: [{ msg: "Something went wrong!" }],
+            vals: { fname, lname, phone, username, password },
+          },
+          layout: false,
+        });
+      });
+  } else {
+    res.render("registration", {
+      data: { error: err, vals: { fname, lname, phone, username, password } },
+      layout: false,
+    });
+  }
 });
 
 app.get("/login", (req, res) => {
@@ -139,6 +178,8 @@ app.post("/login", upload.single("photo"), (req, res) => {
     layout: false,
   });
 });
+
+app.get("/dashboard", (req, res) => {});
 
 seq_obj
   .authenticate()
